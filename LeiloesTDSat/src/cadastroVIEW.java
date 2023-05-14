@@ -1,3 +1,6 @@
+
+import javax.swing.JOptionPane;
+
 public class cadastroVIEW extends javax.swing.JFrame {
 
     public cadastroVIEW() {
@@ -143,7 +146,11 @@ public class cadastroVIEW extends javax.swing.JFrame {
         p.setStatus("A Venda");
         
         ProdutosDAO pdao = new ProdutosDAO();
-        pdao.cadastraProduto(p);
+        if(pdao.cadastraProduto(p) == true){
+            JOptionPane.showMessageDialog(null, "Produto Adicionado!");
+        }else{
+            JOptionPane.showMessageDialog(null, "Falha ao Adicionar Produto!");
+        }
         
     }//GEN-LAST:event_btn_CadastrarActionPerformed
 
