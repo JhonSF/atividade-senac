@@ -1,42 +1,50 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author Adm
- */
-
 import java.sql.PreparedStatement;
 import java.sql.Connection;
-import javax.swing.JOptionPane;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 
 public class ProdutosDAO {
     
-    Connection conn;
-    PreparedStatement prep;
-    ResultSet resultset;
-    ArrayList<ProdutosDTO> listagem = new ArrayList<>();
+    private conectaDAO conn = new conectaDAO();
+    //PreparedStatement prep;
+    //ResultSet resultset;
+    // ArrayList<ProdutosDTO> listagem = new ArrayList<>();
     
-    public void cadastrarProduto (ProdutosDTO produto){
+    public boolean cadastraProduto (ProdutosDTO p){
         
+        PreparedStatement stmt = null;
+        String sql = "INSERT INTO uc11.produtos VALUES (?,?,?)";
         
-        //conn = new conectaDAO().connectDB();
-        
-        
+        try{
+            stmt = conn.connectDB().prepareStatement(sql);
+            
+            stmt.setNull(1, 0);
+            stmt.setString(2, p.getNome());
+            stmt.setInt(3, p.getValor());
+            stmt.setString(4, p.getStatus());
+            
+            stmt.executeQuery();
+            
+            return true;
+            
+        }catch(SQLException sqle){
+            JOptionPane.showMessageDialog(null, "Erro ao Inserir Dados!");
+            System.out.println(sqle.getMessage());
+            return false;
+            
+        }finally{
+            conn.disconnectDB();
+        }   
     }
-    
+  
+    /*
     public ArrayList<ProdutosDTO> listarProdutos(){
         
         return listagem;
     }
-    
-    
-    
-        
+    */  
 }
 
