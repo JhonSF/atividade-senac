@@ -20,7 +20,7 @@ public class conectaDAO {
             conn = DriverManager.getConnection(URL, USER, PASS);
             System.out.println("Conexao Realizada");
         } catch (ClassNotFoundException | SQLException ex){
-            JOptionPane.showMessageDialog(null, "Erro ConectaDAO" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro de Conexão em connectDAO" + ex.getMessage());
         }
         return conn;
     }
@@ -30,7 +30,7 @@ public class conectaDAO {
             conn.close();
             System.out.println("Desconectado");
         }catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "Erro ConectaDAO" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro de Desconexão connectDAO" + ex.getMessage());
         }
     
     }

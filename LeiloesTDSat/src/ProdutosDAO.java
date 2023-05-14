@@ -11,12 +11,12 @@ public class ProdutosDAO {
     private conectaDAO conn = new conectaDAO();
     //PreparedStatement prep;
     //ResultSet resultset;
-    // ArrayList<ProdutosDTO> listagem = new ArrayList<>();
+     ArrayList<ProdutosDTO> listagem = new ArrayList<>();
     
     public boolean cadastraProduto (ProdutosDTO p){
         
         PreparedStatement stmt = null;
-        String sql = "INSERT INTO uc11.produtos VALUES (?,?,?)";
+        String sql = "INSERT INTO uc11.produtos VALUES (?,?,?,?)";
         
         try{
             stmt = conn.connectDB().prepareStatement(sql);
@@ -26,7 +26,7 @@ public class ProdutosDAO {
             stmt.setInt(3, p.getValor());
             stmt.setString(4, p.getStatus());
             
-            stmt.executeQuery();
+            stmt.execute();
             
             return true;
             
@@ -35,16 +35,17 @@ public class ProdutosDAO {
             System.out.println(sqle.getMessage());
             return false;
             
-        }finally{
+        }
+        finally{
             conn.disconnectDB();
         }   
     }
   
-    /*
+    
     public ArrayList<ProdutosDTO> listarProdutos(){
         
         return listagem;
     }
-    */  
+     
 }
 
