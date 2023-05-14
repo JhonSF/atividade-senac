@@ -7,5 +7,4 @@ Descrição.
   O projeto LeiloesTDSat tem o intuito de realizar cadastro, listagens, vendas e consultas de produtos da empresa.
 
 Tecnologias utilizadas.
-  Java
-  MySQL
+  Java e MySQL
