@@ -9,10 +9,6 @@ import javax.swing.JOptionPane;
 public class ProdutosDAO {
     
     private conectaDAO conn = new conectaDAO();
-    //PreparedStatement prep;
-    //ResultSet resultset;
-     ArrayList<ProdutosDTO> listagem = new ArrayList<>();
-    
     public boolean cadastraProduto (ProdutosDTO p){
         
         PreparedStatement stmt = null;
@@ -40,12 +36,35 @@ public class ProdutosDAO {
             conn.disconnectDB();
         }   
     }
-  
-    
-    public ArrayList<ProdutosDTO> listarProdutos(){
+
+    public ArrayList<ProdutosDTO> listaProdutos(){
         
+        ArrayList<ProdutosDTO> listagem = new ArrayList<>();
+        
+        String sql = "SELECT * FROM produtos";
+        
+        try{
+           PreparedStatement stmt = conn.connectDB().prepareStatement(sql);
+           ResultSet rs = stmt.executeQuery();
+           while(rs.next()){
+               
+               ProdutosDTO p = new ProdutosDTO();
+               
+               p.setId(rs.getInt("id"));
+               p.setNome(rs.getString("nome"));
+               p.setValor(rs.getInt("valor"));
+               p.setStatus(rs.getString("status"));
+               
+               listagem.add(p);
+               
+           }
+        }catch(SQLException sqle){
+            JOptionPane.showMessageDialog(null, "Erro ao Inserir Dados!");
+            System.out.println(sqle.getMessage());  
+        }finally{
+            conn.disconnectDB();
+        }
         return listagem;
-    }
-     
+    }   
 }
 
