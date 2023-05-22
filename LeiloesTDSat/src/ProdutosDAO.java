@@ -64,6 +64,7 @@ public class ProdutosDAO {
         }finally{
             conn.disconnectDB();
         }
+        
         return listagem;
     }   
 }
