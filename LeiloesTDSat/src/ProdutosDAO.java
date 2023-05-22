@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 public class ProdutosDAO {
     
     private conectaDAO conn = new conectaDAO();
+    
     public boolean cadastraProduto (ProdutosDTO p){
         
         PreparedStatement stmt = null;
@@ -67,5 +68,30 @@ public class ProdutosDAO {
         
         return listagem;
     }   
+    
+    public boolean vendeProduto(int id){
+        boolean statusVenda = false;
+        
+        PreparedStatement stmt = null;
+        
+        String sql = "UPDATE produtos SET status = ? WHERE id = ?";
+        try{
+         
+            stmt = conn.connectDB().prepareStatement(sql);
+        
+            stmt.setString(1, "Vendido");
+            stmt.setInt(2, id);
+            stmt.execute();
+            
+            return statusVenda = true; 
+        }catch (SQLException sqle) {
+            JOptionPane.showMessageDialog(null, "Erro ao Atualizar Dados!\n"
+                                                           + "Por favor, verificar os dados que queira alterar e tentar Novamente.");
+            System.out.println(sqle.getMessage());
+            return false;
+        }finally{
+         conn.disconnectDB();
+        }
+    }
 }
 
